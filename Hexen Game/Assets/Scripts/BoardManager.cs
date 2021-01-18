@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private int _amountOfEnemies = 8;
     [SerializeField] private GameObject _enemy;
     [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private GameObject _cardManager;
+    [SerializeField] private GameObject _gameManager;
     private float __hexagonXOffset = 0.57f;
     private float __hexagonYOffset = 0.5f;
 
@@ -82,7 +82,10 @@ public class BoardManager : MonoBehaviour
 
     void spawnOnTile(int tileNmbr, GameObject item) {
         _tiles[tileNmbr].GetComponent<Tile>().setOccupied(true);
-        Instantiate(item, _tiles[tileNmbr].transform.position + new Vector3(0,0,-0.19f), item.transform.rotation);
+        GameObject enemy = Instantiate(item, _tiles[tileNmbr].transform.position + new Vector3(0,0,-0.19f), item.transform.rotation);
+        enemy.GetComponent<Enemy>().setNumber(_tiles[tileNmbr].GetComponent<Tile>().getNumber());
+        enemy.GetComponent<Enemy>().setRow(_tiles[tileNmbr].GetComponent<Tile>().getRow());
+        _gameManager.GetComponent<EnemyManager>().addEnemy(enemy);
         _tiles[tileNmbr].GetComponent<Tile>().toggleHighlighted();
     }
 
@@ -96,13 +99,27 @@ public class BoardManager : MonoBehaviour
         return gameObject;
     }
 
-    List<GameObject> findSurroundingTiles(GameObject tile) {
+    public List<GameObject> findSurroundingTiles(GameObject tile) {
         List<GameObject> tiles = new List<GameObject>();
 
         for (int i = 0; i < _tiles.Count; i++)
         {
-            if(Mathf.Abs(tile.GetComponent<Tile>().getNumber() - _tiles[i].GetComponent<Tile>().getNumber()) < 2 && Mathf.Abs(tile.GetComponent<Tile>().getRow() - _tiles[i].GetComponent<Tile>().getRow()) < 2) {
-                tiles.Add(_tiles[i]);
+            if(Mathf.Abs(tile.GetComponent<Tile>().getNumber() - _tiles[i].GetComponent<Tile>().getNumber()) <= 1 && Mathf.Abs(tile.GetComponent<Tile>().getRow() - _tiles[i].GetComponent<Tile>().getRow()) <= 1) {
+                if(_tiles[i].GetComponent<Tile>().getOccupied() == false)
+                    tiles.Add(_tiles[i]);
+            }
+        }
+        return tiles;
+    }
+
+        public List<GameObject> findSurroundingTilesv2(Vector2 tilev2) {
+        List<GameObject> tiles = new List<GameObject>();
+
+        for (int i = 0; i < _tiles.Count; i++)
+        {
+            if(Mathf.Abs(tilev2.x - _tiles[i].GetComponent<Tile>().getNumber()) <= 1 && Mathf.Abs(tilev2.y - _tiles[i].GetComponent<Tile>().getRow()) <= 1) {
+                if(_tiles[i].GetComponent<Tile>().getOccupied() == false)
+                    tiles.Add(_tiles[i]);
             }
         }
         return tiles;
