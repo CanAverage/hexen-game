@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae142ab3500d8394db4278c05a5e8ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1267669563}
   _cardID: 0
 --- !u!1 &343247848
 GameObject:
@@ -290,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae142ab3500d8394db4278c05a5e8ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1267669563}
   _cardID: 0
 --- !u!1 &401133840
 GameObject:
@@ -636,6 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae142ab3500d8394db4278c05a5e8ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1267669563}
   _cardID: 0
 --- !u!1 &963194225
 GameObject:
@@ -754,7 +757,9 @@ MonoBehaviour:
     type: 3}
   _amountOfEnemies: 8
   _enemy: {fileID: 1980804076034693884, guid: 4181197c661da38489707e5721aa0f85, type: 3}
-  _player: {fileID: 6662541353596193571, guid: 67605eb4ff6cf8248ab95dcd4c4b79c8, type: 3}
+  _playerPrefab: {fileID: 6662541353596193571, guid: 67605eb4ff6cf8248ab95dcd4c4b79c8,
+    type: 3}
+  _cardManager: {fileID: 0}
 --- !u!4 &1267669565
 Transform:
   m_ObjectHideFlags: 0
@@ -875,6 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae142ab3500d8394db4278c05a5e8ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1267669563}
   _cardID: 0
 --- !u!1 &1797127309
 GameObject:
@@ -960,4 +966,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae142ab3500d8394db4278c05a5e8ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 1267669563}
   _cardID: 0

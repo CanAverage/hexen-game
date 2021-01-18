@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private bool _hasPlayer = false;
     [SerializeField] private Material _highlightedMaterial;
     [SerializeField] private Material _normalMaterial;
+    private GameObject _boardManager;
     bool isHighlighted = false;
     [SerializeField]private int _tileRow = 0;
     [SerializeField]private int _tileNumber = 0;
@@ -53,5 +54,9 @@ public class Tile : MonoBehaviour
 
     public int getNumber() {
         return _tileNumber;
+    }
+
+    public void setBoardManager(GameObject BM) {
+        _boardManager = BM;
     }
 }

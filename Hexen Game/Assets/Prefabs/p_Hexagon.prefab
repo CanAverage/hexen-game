@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 9058179273382299508}
   - component: {fileID: 6508239429420905406}
   - component: {fileID: 6103080500390413544}
-  m_Layer: 0
+  - component: {fileID: 1037790861889261764}
+  m_Layer: 8
   m_Name: p_Hexagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,3 +98,19 @@ MonoBehaviour:
   _highlightedMaterial: {fileID: 2100000, guid: 5c2f8654ba4c85b46ab2cf8a979e2416,
     type: 2}
   _normalMaterial: {fileID: 2100000, guid: 9b8a9b37b3ecf8241b14ad8c93daf918, type: 2}
+  _tileRow: 0
+  _tileNumber: 0
+--- !u!64 &1037790861889261764
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4706566412913431147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -951608786083511892, guid: e42ef9019700a284287bbebd56832c67, type: 3}

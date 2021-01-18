@@ -7,7 +7,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject _hexagon;
     [SerializeField] private int _amountOfEnemies = 8;
     [SerializeField] private GameObject _enemy;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _playerPrefab;
+    [SerializeField] private GameObject _cardManager;
     private float __hexagonXOffset = 0.57f;
     private float __hexagonYOffset = 0.5f;
 
@@ -21,6 +22,8 @@ public class BoardManager : MonoBehaviour
     private int _modifier = 1;
     private float _indent = 0.29f;
     List<GameObject> _tiles;
+    private GameObject _tilePlayerIsOn;
+    private GameObject  _player;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,7 @@ public class BoardManager : MonoBehaviour
                 _currentXOffset += __hexagonXOffset;
                 _tileNumber += 1;
                 _tiles[_tiles.Count-1].GetComponent<Tile>().setPosition(_tileRow,_tileNumber);
+                _tiles[_tiles.Count-1].GetComponent<Tile>().setBoardManager(this.gameObject);
             }
             if(flipflop) {
                 flipflop = !flipflop;
@@ -57,7 +61,10 @@ public class BoardManager : MonoBehaviour
             _currentAmountOfRows += _modifier;
             
         }
-        spawnOnTile(_tiles.Count/2, _player);
+        _tiles[_tiles.Count/2].GetComponent<Tile>().setOccupied(true);
+        _player = Instantiate(_playerPrefab, _tiles[_tiles.Count/2].transform.position + new Vector3(0,0,-0.19f), _playerPrefab.transform.rotation);
+        _tiles[_tiles.Count/2].GetComponent<Tile>().SetHasPlayer(true);
+        _tilePlayerIsOn = _tiles[_tiles.Count/2];
         for (int i = 0; i < _amountOfEnemies; i++)
         {
             bool isValid = false;
@@ -88,6 +95,36 @@ public class BoardManager : MonoBehaviour
         }
         return gameObject;
     }
+
+    List<GameObject> findSurroundingTiles(GameObject tile) {
+        List<GameObject> tiles = new List<GameObject>();
+
+        for (int i = 0; i < _tiles.Count; i++)
+        {
+            if(Mathf.Abs(tile.GetComponent<Tile>().getNumber() - _tiles[i].GetComponent<Tile>().getNumber()) < 2 && Mathf.Abs(tile.GetComponent<Tile>().getRow() - _tiles[i].GetComponent<Tile>().getRow()) < 2) {
+                tiles.Add(_tiles[i]);
+            }
+        }
+        return tiles;
+    }
+
+    public GameObject getPlayer() {
+        return _playerPrefab;
+    }
+
+    public GameObject getPlayerTile() {
+        return _tilePlayerIsOn;
+    }
+
+    public void setPlayerTile(GameObject tile) {
+        _tilePlayerIsOn.GetComponent<Tile>().setOccupied(false);
+        _tilePlayerIsOn.GetComponent<Tile>().SetHasPlayer(false);
+        _player.transform.position = tile.transform.position + new Vector3(0,0,-0.19f); 
+        tile.GetComponent<Tile>().setOccupied(true);
+        tile.GetComponent<Tile>().SetHasPlayer(true);
+        _tilePlayerIsOn = tile;
+    }
+
 
 }
 

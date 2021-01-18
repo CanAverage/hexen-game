@@ -32,5 +32,29 @@ public class DeckManager : MonoBehaviour
         _card4.GetComponent<Card>().setId(_deck[3]);
         _card5.GetComponent<RawImage>().texture = _cards[_deck[4]];
         _card5.GetComponent<Card>().setId(_deck[4]);
+        _deck.Remove(0);
+        _deck.Remove(0);
+        _deck.Remove(0);
+        _deck.Remove(0);
+        _deck.Remove(0);
+    }
+
+
+    public bool isCardLeft() {
+        if(_deck.Count > 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int getCardID() {
+        return _deck[0];
+    }
+    public Texture getCard() {
+        Texture card = _cards[_deck[0]];
+        _deck.Remove(_deck[0]);
+        return card;
+        
     }
 }
