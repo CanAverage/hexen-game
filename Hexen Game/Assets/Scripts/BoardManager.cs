@@ -15,6 +15,8 @@ public class BoardManager : MonoBehaviour
     private float _currentYOffset = 0;
     private int _minRows = 4;
     private int _maxRows = 7;
+    private int _tileRow;
+    private int _tileNumber;
     private int _currentAmountOfRows = 4;
     private int _modifier = 1;
     private float _indent = 0.29f;
@@ -29,6 +31,8 @@ public class BoardManager : MonoBehaviour
                 _modifier = -1;
             }
             _currentYOffset += __hexagonYOffset;
+            _tileRow += 1;
+            _tileNumber = 0;
             _currentXOffset += (_maxRows - _currentAmountOfRows) * __hexagonXOffset;
             if(_currentAmountOfRows > 5) {
                 _currentXOffset += __hexagonXOffset;
@@ -38,6 +42,8 @@ public class BoardManager : MonoBehaviour
             {
                 _tiles.Add(Instantiate(_hexagon,new Vector3(_currentXOffset, _currentYOffset,0), _hexagon.transform.rotation));
                 _currentXOffset += __hexagonXOffset;
+                _tileNumber += 1;
+                _tiles[_tiles.Count-1].GetComponent<Tile>().setPosition(_tileRow,_tileNumber);
             }
             if(flipflop) {
                 flipflop = !flipflop;
@@ -51,6 +57,7 @@ public class BoardManager : MonoBehaviour
             _currentAmountOfRows += _modifier;
             
         }
+        spawnOnTile(_tiles.Count/2, _player);
         for (int i = 0; i < _amountOfEnemies; i++)
         {
             bool isValid = false;
@@ -61,12 +68,27 @@ public class BoardManager : MonoBehaviour
                     isValid = true;
                 }
             }
-            _tiles[position].GetComponent<Tile>().setOccupied(true);
-            Instantiate(_enemy, _tiles[position].transform.position + new Vector3(0,0,-0.19f), _enemy.transform.rotation);
+            spawnOnTile(position, _enemy);
         }
 
     }
 
+    void spawnOnTile(int tileNmbr, GameObject item) {
+        _tiles[tileNmbr].GetComponent<Tile>().setOccupied(true);
+        Instantiate(item, _tiles[tileNmbr].transform.position + new Vector3(0,0,-0.19f), item.transform.rotation);
+        _tiles[tileNmbr].GetComponent<Tile>().toggleHighlighted();
+    }
 
+    GameObject findTile(int row, int number) {
+        for (int i = 0; i < _tiles.Count; i++)
+        {
+            if(_tiles[i].GetComponent<Tile>().getNumber() == number && _tiles[i].GetComponent<Tile>().getRow() == row) {
+                return(_tiles[i]);
+            }
+        }
+        return gameObject;
+    }
 
 }
+
+

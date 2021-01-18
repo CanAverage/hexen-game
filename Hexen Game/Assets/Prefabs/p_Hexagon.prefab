@@ -94,3 +94,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _occupied: 0
   _hasPlayer: 0
+  _highlightedMaterial: {fileID: 2100000, guid: 5c2f8654ba4c85b46ab2cf8a979e2416,
+    type: 2}
+  _normalMaterial: {fileID: 2100000, guid: 9b8a9b37b3ecf8241b14ad8c93daf918, type: 2}
